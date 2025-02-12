@@ -11,13 +11,11 @@ using System.IO;
 namespace Flashcards.ViewModels.Windows
 {
     public delegate Task SetCommand(int num);
-    public class MainWindowViewModel(INavigationService navigationService, ISetRepository setRepository, IWordRepository wordRepository) : ViewModel
+
+    public class MainWindowViewModel(INavigationService navigationService) : ViewModel
     {
-
-        #region [ Fields ]
-        #endregion
-
         #region [ Properties ]
+
         public INavigationService Navigation
         {
             get => navigationService!;
@@ -27,53 +25,58 @@ namespace Flashcards.ViewModels.Windows
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion [ Properties ]
 
         #region [ Commands ]
+
         public RelayCommand NavigateToCSViewCommand => new RelayCommand
             (
                 execute => Navigation.NavigateTo(App.ServiceProvider!.GetRequiredService<CSViewModel>())
             );
+
         public RelayCommand NavigateToSetsViewCommand => new RelayCommand
             (
                 execute => Navigation.NavigateTo(App.ServiceProvider!.GetRequiredService<SetsViewModel>())
             );
+
         public RelayCommand SetVisibility => new RelayCommand
             (
             execute => SelectedSetViewModel.setCommand!(0),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
+
         public RelayCommand GoForward => new RelayCommand
             (
             execute => SelectedSetViewModel.setCommand!(1),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
+
         public RelayCommand GoBack => new RelayCommand
             (
             execute => SelectedSetViewModel.setCommand!(2),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
+
         public RelayCommand ToFavorite => new RelayCommand
             (
             execute => SelectedSetViewModel.setCommand!(3),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
-        public RelayCommand Import => new RelayCommand(async execute =>
-            {
-                var words = new List<WordEntity>();
-                var path = "C:\\Users\\h-b-1\\Desktop\\sets.json";
 
-                var res = JsonConvert.DeserializeObject<List<SetEntity>>(File.ReadAllText(path))!;
-                foreach (var set in res)
-                {
-                    await setRepository!.AddAsync(set);
-                }
+        public RelayCommand Import => new RelayCommand(execute =>
+            {
+                //var words = new List<WordEntity>();
+                //var path = "C:\\Users\\h-b-1\\Desktop\\sets.json";
+
+                //var res = JsonConvert.DeserializeObject<List<SetEntity>>(File.ReadAllText(path))!;
+                //foreach (var set in res)
+                //{
+                //    await setRepository!.AddAsync(set);
+                //}
             }
             );
-        #endregion
 
-        #region [ Methods ]
-
-        #endregion
+        #endregion [ Commands ]
     }
 }

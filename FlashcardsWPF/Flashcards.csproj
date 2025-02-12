@@ -12,6 +12,7 @@
     <None Remove="wwwroot\Images\ex.png" />
     <None Remove="wwwroot\Images\ok.png" />
     <None Remove="wwwroot\Images\shutdown.png" />
+    <None Remove="wwwroot\Images\water.jfif" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,7 @@
     <Resource Include="wwwroot\Images\ex.png" />
     <Resource Include="wwwroot\Images\ok.png" />
     <Resource Include="wwwroot\Images\shutdown.png" />
+    <Resource Include="wwwroot\Images\water.jfif" />
   </ItemGroup>
 
   <ItemGroup>

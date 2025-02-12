@@ -23,6 +23,7 @@ namespace Flashcards.ViewModels.UserControls
         }
 
         #region [ Fields ]
+
         private readonly Func<ObservableCollection<WordEntity>, bool, SelectedSetViewModel> _selectedSetViewModel;
         private readonly ObservableCollection<WordEntity> _words;
         private int _numOfWords = 0;
@@ -35,16 +36,20 @@ namespace Flashcards.ViewModels.UserControls
         private string _numOfFavWordsString;
         private readonly INavigationService _navigator;
         private readonly IWordRepository _wordRepository;
-        #endregion
+
+        #endregion [ Fields ]
 
         #region [ Commands ]
+
         public RelayCommand SelectSetCommand => new RelayCommand(execute => SelectSet(), canExecute => _words.Count > 0);
         public RelayCommand SelectFavWordsCommand => new RelayCommand(execute => SelectFavWords(), canExecute => _words.Where(w => w.IsFavorite).Count() > 0);
         public RelayCommand AddToFavInRangeCommand => new RelayCommand(async execute => await AddToFavInRange(), canExecute => RangeStart > 0 && RangeEnd >= RangeStart && RangeStart <= _words.Count && RangeEnd <= _words.Count);
         public RelayCommand DeleteAllFavoriteCommand => new RelayCommand(async execute => await DeleteAllFavorite(), canExecute => _words.Any(w => w.IsFavorite));
-        #endregion
+
+        #endregion [ Commands ]
 
         #region [ Properties ]
+
         public int NumOfWords
         {
             get { return _numOfWords; }
@@ -54,6 +59,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public bool IsChecked
         {
             get { return _isChecked; }
@@ -63,6 +69,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public int NumOfFavWords
         {
             get { return _numOfFavWords; }
@@ -72,6 +79,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string NameOfSet
         {
             get { return _nameOfSet; }
@@ -81,6 +89,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public int RangeStart
         {
             get { return _rangeStart; }
@@ -90,6 +99,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public int RangeEnd
         {
             get { return _rangeEnd; }
@@ -99,6 +109,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string NumOfWordsString
         {
             get { return _numOfWordsString; }
@@ -108,6 +119,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string NumOfFavWordsString
         {
             get { return _numOfFavWordsString; }
@@ -117,17 +129,21 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion [ Properties ]
 
         #region [ Methods ]
+
         private void SelectSet()
         {
             _navigator.NavigateTo(_selectedSetViewModel(_words, IsChecked));
         }
+
         private void SelectFavWords()
         {
             _navigator.NavigateTo(_selectedSetViewModel(new ObservableCollection<WordEntity>(_words.Where(words => words.IsFavorite == true).ToList()), IsChecked));
         }
+
         private async Task AddToFavInRange()
         {
             int i = RangeStart - 1;
@@ -149,6 +165,7 @@ namespace Flashcards.ViewModels.UserControls
             }
             RangeStart = 0; RangeEnd = 0;
         }
+
         private async Task DeleteAllFavorite()
         {
             int i = 0;
@@ -163,6 +180,7 @@ namespace Flashcards.ViewModels.UserControls
                 i++;
             }
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

@@ -8,8 +8,8 @@
              mc:Ignorable="d"
              d:DesignHeight="800"
              d:DesignWidth="800">
-    
-    <StackPanel >
+
+    <StackPanel>
         <TextBlock Text="Set creation"
                    Foreground="AliceBlue"
                    HorizontalAlignment="Center"
@@ -41,10 +41,8 @@
                     FontWeight="Light"
                     Padding="10"
                     BorderBrush="AntiqueWhite">
-
             </Button>
         </StackPanel>
-
 
         <TextBlock Text="Word"
                    Foreground="AliceBlue"
@@ -64,13 +62,12 @@
                      Background="Transparent"
                      Text="{Binding WordName, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                      CaretBrush="AliceBlue" />
-            
+
             <Image Source="/wwwroot/Images/ex.png"
                    Height="50"
                    Width="50"
                    Margin="310 0 0 0"
                    Visibility="{Binding ExVis}" />
-
         </Grid>
         <TextBlock Text="Definition"
                    Foreground="AliceBlue"
@@ -109,7 +106,6 @@
                    Margin="270 20 0 0"
                    Visibility="{Binding ThumbUpVis}" />
         </Grid>
-
 
         <Button Content="Save the word"
                 HorizontalAlignment="Center"
@@ -183,8 +179,6 @@
                         Command="{Binding DeleteWordCommand}"
                         Style="{StaticResource CSButtons}" />
             </StackPanel>
-
         </Grid>
-
     </StackPanel>
 </UserControl>

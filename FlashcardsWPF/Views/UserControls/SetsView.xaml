@@ -29,7 +29,6 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-
         </StackPanel>
     </ScrollViewer>
 </UserControl>

@@ -9,10 +9,13 @@ namespace Flashcards.Services.Bases
     public class NavigationService() : ObservableObject, INavigationService
     {
         #region [ Fields ]
+
         private ViewModel _currentView = App.ServiceProvider!.GetRequiredService<CSViewModel>();
-        #endregion
+
+        #endregion [ Fields ]
 
         #region [ Properties ]
+
         public ViewModel CurrentView
         {
             get => _currentView;
@@ -22,13 +25,16 @@ namespace Flashcards.Services.Bases
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion [ Properties ]
 
         #region [ Methods ]
+
         public void NavigateTo(ViewModel viewModel)
         {
             CurrentView = viewModel;
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

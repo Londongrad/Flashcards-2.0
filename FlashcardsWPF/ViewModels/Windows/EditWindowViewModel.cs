@@ -10,11 +10,14 @@ namespace Flashcards.ViewModels
     public class EditWindowViewModel(WordEntity word, IWordRepository wordRepository) : ObservableObject
     {
         #region [ Commands ]
+
         public RelayCommand<Window> SaveChangesCommand => new RelayCommand<Window>(SaveChanges);
         public RelayCommand ChangeImageCommand => new RelayCommand(execute => ChangeImage());
-        #endregion
+
+        #endregion [ Commands ]
 
         #region [ Properties ]
+
         public string Name
         {
             get { return word.Name; }
@@ -24,6 +27,7 @@ namespace Flashcards.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string Definition
         {
             get { return word.Definition; }
@@ -33,6 +37,7 @@ namespace Flashcards.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public string ImagePath
         {
             get { return word.ImagePath; }
@@ -42,9 +47,11 @@ namespace Flashcards.ViewModels
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion [ Properties ]
 
         #region [ Methods ]
+
         private async void SaveChanges(Window window)
         {
             if (Name == "" || Definition == "") { return; }
@@ -67,6 +74,7 @@ namespace Flashcards.ViewModels
             dlg.ShowDialog();
             ImagePath = dlg.FileName;
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

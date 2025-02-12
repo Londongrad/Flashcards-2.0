@@ -3,15 +3,14 @@ using Flashcards.Models;
 using Flashcards.Repositoties.Abstract;
 using Flashcards.ViewModels.Base;
 using Microsoft.Win32;
-using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Flashcards.ViewModels.UserControls
 {
     public class CSViewModel(ISetRepository setRepository, IWordRepository wordRepository) : ViewModel
     {
         #region [ Fields ]
+
         private string _set = string.Empty;
         private string _wordName = string.Empty;
         private string _definition = string.Empty;
@@ -20,17 +19,21 @@ namespace Flashcards.ViewModels.UserControls
         private string _nameDeleteWord = string.Empty;
         private string _thumbUpVis = "Hidden";
         private string _exVis = "Hidden";
-        #endregion
+
+        #endregion [ Fields ]
 
         #region [ Commands ]
+
         public RelayCommand CreateSetCommand => new RelayCommand(async execute => await CreateSet(), canExecute => Set != "");
         public RelayCommand DeleteSetCommand => new RelayCommand(async execute => await DeleteSet(), canExecute => NameDeleteSet != "");
         public RelayCommand FindImageCommand => new RelayCommand(execute => FindImage(), canExecute => WordName != "");
         public RelayCommand DeleteWordCommand => new RelayCommand(async execute => await DeleteWord(), canExecute => NameDeleteWord != "");
         public RelayCommand AddWordCommand => new RelayCommand(async execute => await AddWord(), canExecute => Set != "" && WordName != "" && Definition != "" && ExVis != "Visible");
-        #endregion
+
+        #endregion [ Commands ]
 
         #region [ Properties ]
+
         public string Set
         {
             get { return _set; }
@@ -40,6 +43,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string WordName
         {
             get { return _wordName; }
@@ -56,6 +60,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string Definition
         {
             get { return _definition; }
@@ -65,6 +70,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string NameDeleteSet
         {
             get { return _nameDeleteSet; }
@@ -74,6 +80,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string NameDeleteWord
         {
             get { return _nameDeleteWord; }
@@ -83,6 +90,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string ThumbUpVis
         {
             get { return _thumbUpVis; }
@@ -92,6 +100,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string ExVis
         {
             get { return _exVis; }
@@ -101,6 +110,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string ImagePath
         {
             get { return _imagePath; }
@@ -111,9 +121,11 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion [ Properties ]
 
         #region [ Methods ]
+
         private async Task<SetEntity> CreateSet()
         {
             var sets = await setRepository.GetAllAsync();
@@ -122,6 +134,7 @@ namespace Flashcards.ViewModels.UserControls
                       await setRepository.AddAsync(new SetEntity() { Name = Set });
             return set;
         }
+
         private async Task DeleteSet()
         {
             MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the set {NameDeleteSet} ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -129,6 +142,7 @@ namespace Flashcards.ViewModels.UserControls
                 await setRepository.DeleteAsync(NameDeleteSet);
             NameDeleteSet = "";
         }
+
         private async Task DeleteWord()
         {
             MessageBoxResult result = MessageBox.Show($"Are you sure you want to delete the word {NameDeleteWord} ?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -136,11 +150,12 @@ namespace Flashcards.ViewModels.UserControls
                 await wordRepository.DeleteAsync(NameDeleteWord);
             NameDeleteWord = "";
         }
+
         private void FindImage()
         {
             ThumbUpVis = "Hidden";
-            
-            OpenFileDialog dlg = new ();
+
+            OpenFileDialog dlg = new();
 
             dlg.DefaultExt = ".png";
             dlg.Filter = "All Pictures (*.emf;*.wmf;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.bmp;*.dib;*.rle;*.gif;*.emz;*.wmz;*.tif;*.tiff;*.svg;*.ico;*.webp)" +
@@ -154,7 +169,6 @@ namespace Flashcards.ViewModels.UserControls
                 ThumbUpVis = "Visible";
             }
 
-
             // You can use this code, if you're lazy to select and image. Just predefine the path and name you image just like a word. And it will choose it automatically by pressing a button.
 
             //ThumbUpVis = "Hidden";
@@ -162,8 +176,8 @@ namespace Flashcards.ViewModels.UserControls
             //    ImagePath = Directory.GetFiles("D:\\Download\\Images", WordName + ".*", SearchOption.AllDirectories).FirstOrDefault()!;
             //if (ImagePath != "" && ImagePath != null)
             //    ThumbUpVis = "Visible";
-
         }
+
         private async Task AddWord()
         {
             ExVis = "Hidden";
@@ -180,6 +194,7 @@ namespace Flashcards.ViewModels.UserControls
             WordName = "";
             Definition = "";
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

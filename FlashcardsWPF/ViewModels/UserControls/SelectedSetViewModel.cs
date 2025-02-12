@@ -24,6 +24,7 @@ namespace Flashcards.ViewModels.UserControls
         }
 
         #region [ Fields ]
+
         public static SetCommand? setCommand;
         private int i = 0;
         private readonly bool _isChecked;
@@ -38,15 +39,19 @@ namespace Flashcards.ViewModels.UserControls
         private string _isVisibleDef = "Hidden";
         private string _isVisibleImage = "Hidden";
         private string _count = string.Empty;
-        #endregion
+
+        #endregion [ Fields ]
 
         #region [ Commmands ]
+
         public RelayCommand MixWordsCommand => new RelayCommand(async execute => await MixWords());
         public RelayCommand EditCommand => new RelayCommand(execute => Edit());
         public RelayCommand DeleteWordCommand => new RelayCommand(async execute => await DeleteWord());
-        #endregion
+
+        #endregion [ Commmands ]
 
         #region [ Properties ]
+
         public string WordName
         {
             get { return _wordName; }
@@ -56,6 +61,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string DefinitionName
         {
             get { return _definitionName; }
@@ -65,6 +71,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string Image
         {
             get { return _imagePath; }
@@ -74,6 +81,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string ColorFav
         {
             get { return _colorFav; }
@@ -83,6 +91,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string IsVisibleWord
         {
             get { return _isVisibleWord; }
@@ -92,6 +101,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string IsVisibleDef
         {
             get { return _isVisibleDef; }
@@ -101,6 +111,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string IsVisibleImage
         {
             get { return _isVisibleImage; }
@@ -110,6 +121,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public string Count
         {
             get { return _count; }
@@ -119,6 +131,7 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
+
         public ObservableCollection<WordEntity> Words
         {
             get { return _words; }
@@ -128,15 +141,18 @@ namespace Flashcards.ViewModels.UserControls
                 OnPropertyChanged();
             }
         }
-        #endregion
+
+        #endregion [ Properties ]
 
         #region [ Methods ]
+
         private async Task SayWordAsync(string word)
         {
             var speechSynthesizer = new SpeechSynthesizer();
             speechSynthesizer.SpeakAsync(word);
         }
-        private async Task ShowFirstWord()
+
+        private async void ShowFirstWord()
         {
             var lastWord = _words!.FirstOrDefault(c => c.IsLastWord == true);
             if (lastWord != null)
@@ -148,6 +164,7 @@ namespace Flashcards.ViewModels.UserControls
                 ColorFav = "Yellow";
             await ShowWord();
         }
+
         private async Task ShowWord()
         {
             WordName = _words![i].Name;
@@ -167,6 +184,7 @@ namespace Flashcards.ViewModels.UserControls
                 await SayWordAsync(WordName);
             }
         }
+
         public async Task KeyCommands(int command)
         {
             switch (command)
@@ -187,6 +205,7 @@ namespace Flashcards.ViewModels.UserControls
                         IsVisibleImage = "Visible";
                     }
                     break;
+
                 case 1:
                     if (i >= 0 && i < _words!.Count - 1)
                     {
@@ -211,6 +230,7 @@ namespace Flashcards.ViewModels.UserControls
                         await ShowWord();
                     }
                     break;
+
                 case 2:
                     if (i > 0 && i <= _words!.Count - 1)
                     {
@@ -235,6 +255,7 @@ namespace Flashcards.ViewModels.UserControls
                         await ShowWord();
                     }
                     break;
+
                 case 3:
                     if (_words![i].IsFavorite)
                     {
@@ -245,22 +266,26 @@ namespace Flashcards.ViewModels.UserControls
                     ColorFav = "Yellow";
                     await FavoriteWordAdd();
                     break;
+
                 default:
                     break;
             }
         }
+
         private async Task DeleteWord()
         {
             MessageBoxResult result = MessageBox.Show($"Are you sure you wanna delete the word {_words![i].Name}", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
                 await _wordRepository.DeleteAsync(_words![i].Name);
         }
+
         private void Edit()
         {
             var editWindow = App.ServiceProvider!.GetRequiredService<EditWindow>();
             editWindow.DataContext = _viewModel(_words![i]);
             editWindow.ShowDialog();
         }
+
         private async Task MixWords()
         {
             await LastWordDelete();
@@ -279,26 +304,31 @@ namespace Flashcards.ViewModels.UserControls
             if (_words![0].IsFavorite)
                 ColorFav = "Yellow";
         }
+
         private async Task FavoriteWordAdd()
         {
             _words![i].IsFavorite = true;
             await _wordRepository.UpdateAsync(_words![i]);
         }
+
         private async Task FavoriteWordDelete()
         {
             _words![i].IsFavorite = false;
             await _wordRepository.UpdateAsync(_words![i]);
         }
+
         private async Task LastWordAdd()
         {
             _words![i].IsLastWord = true;
             await _wordRepository.UpdateAsync(_words![i]);
         }
+
         private async Task LastWordDelete()
         {
             _words![i].IsLastWord = false;
             await _wordRepository.UpdateAsync(_words![i]);
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

@@ -20,16 +20,20 @@ namespace Flashcards.ViewModels.UserControls
         }
 
         #region [ Fields ]
+
         private ObservableCollection<SetViewModel>? _sets;
         private readonly ISetRepository _setRepository;
         private readonly Func<SetEntity, SetViewModel> _setView;
-        #endregion
+
+        #endregion [ Fields ]
 
         #region [ Properties ]
+
         /// <summary>
         /// Коллекция для сортировки
         /// </summary>
         public ICollectionView BirdsCollectionView { get; }
+
         public ObservableCollection<SetViewModel> Sets
         {
             get { return _sets!; }
@@ -38,15 +42,18 @@ namespace Flashcards.ViewModels.UserControls
                 _sets = value;
             }
         }
-        #endregion
+
+        #endregion [ Properties ]
 
         #region [ Methods ]
-        private async Task LoadSets()
+
+        private async void LoadSets()
         {
             var sets = await _setRepository.GetAllAsync();
             foreach (var set in sets)
                 Sets.Add(_setView(set));
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

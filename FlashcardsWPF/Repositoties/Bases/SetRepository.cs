@@ -8,10 +8,13 @@ namespace Flashcards.Repositoties.Bases
     public class SetRepository(DesignTimeDbContextFactory contextFactory) : ISetRepository
     {
         #region [ Fields ]
+
         private readonly DesignTimeDbContextFactory _contextFactory = contextFactory;
-        #endregion
+
+        #endregion [ Fields ]
 
         #region [ Methods ]
+
         public async Task<SetEntity> AddAsync(SetEntity set)
         {
             using var _context = _contextFactory.CreateDbContext();
@@ -19,6 +22,7 @@ namespace Flashcards.Repositoties.Bases
             await _context.SaveChangesAsync();
             return result.Entity;
         }
+
         public async Task DeleteAsync(string name)
         {
             using var _context = _contextFactory.CreateDbContext();
@@ -26,11 +30,13 @@ namespace Flashcards.Repositoties.Bases
             .Where(c => c.Name == name)
             .ExecuteDeleteAsync();
         }
+
         public async Task<IEnumerable<SetEntity>> GetAllAsync()
         {
             using var _context = _contextFactory.CreateDbContext();
             return await _context.Sets!.Include(s => s.Words).AsNoTracking().ToListAsync();
         }
+
         public async Task UpdateAsync(SetEntity set)
         {
             using var _context = _contextFactory.CreateDbContext();
@@ -39,6 +45,7 @@ namespace Flashcards.Repositoties.Bases
                 .ExecuteUpdateAsync(sp => sp
                     .SetProperty(c => c.Name, set.Name));
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

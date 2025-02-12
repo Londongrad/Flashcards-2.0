@@ -23,7 +23,7 @@
         <KeyBinding Key="Up"
                     Command="{Binding ToFavorite}" />
     </Window.InputBindings>
-    
+
     <Border Background="#272544"
             CornerRadius="40">
         <Grid>
@@ -33,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
+                <RowDefinition Height="60" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -52,7 +52,7 @@
                     Background="Transparent"
                     BorderBrush="Transparent"
                     Click="Button_Click">
-                <Image Source="/wwwroot/Images/shutdown.png"/>
+                <Image Source="/wwwroot/Images/shutdown.png" />
             </Button>
 
             <StackPanel VerticalAlignment="Center"
@@ -76,7 +76,6 @@
                              FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding Import}" />
-
             </StackPanel>
 
             <ContentControl Grid.Column="1"

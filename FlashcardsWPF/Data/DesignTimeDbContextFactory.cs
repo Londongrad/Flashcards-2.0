@@ -19,7 +19,7 @@ namespace Flashcards.Data
 
             //optionsBuilder.UseSqlServer(connectionString);
 
-            optionsBuilder.UseSqlite("Data Source=flashcards.db");
+            optionsBuilder.UseSqlite($"Data Source={Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("..", "..", "..")))} + flashcards.db");
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }

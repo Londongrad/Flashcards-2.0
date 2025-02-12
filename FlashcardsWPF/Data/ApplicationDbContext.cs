@@ -1,7 +1,6 @@
 ﻿using Flashcards.Configurations;
 using Flashcards.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Flashcards.Data
 {
@@ -9,7 +8,7 @@ namespace Flashcards.Data
     {
         public DbSet<WordEntity>? Words { get; set; }
         public DbSet<SetEntity>? Sets { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new SetConfiguration());
@@ -17,10 +16,10 @@ namespace Flashcards.Data
 
             base.OnModelCreating(modelBuilder);
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-
         }
     }
 }

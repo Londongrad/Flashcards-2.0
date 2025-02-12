@@ -8,16 +8,20 @@ namespace Flashcards.Repositoties.Bases
     public class WordRepository(DesignTimeDbContextFactory contextFactory) : IWordRepository
     {
         #region [ Fields ]
+
         private readonly DesignTimeDbContextFactory _contextFactory = contextFactory;
-        #endregion
+
+        #endregion [ Fields ]
 
         #region [ Methods ]
+
         public async Task AddAsync(WordEntity word)
         {
             using var _context = _contextFactory.CreateDbContext();
             await _context.Words!.AddAsync(word);
             await _context.SaveChangesAsync();
         }
+
         public async Task DeleteAsync(string name)
         {
             using var _context = _contextFactory.CreateDbContext();
@@ -25,6 +29,7 @@ namespace Flashcards.Repositoties.Bases
                 .Where(o => o.Name == name)
                 .ExecuteDeleteAsync();
         }
+
         public async Task UpdateAsync(WordEntity word)
         {
             using var _context = _contextFactory.CreateDbContext();
@@ -37,11 +42,13 @@ namespace Flashcards.Repositoties.Bases
                    .SetProperty(c => c.IsLastWord, word.IsLastWord)
                    .SetProperty(c => c.IsFavorite, word.IsFavorite));
         }
+
         public async Task<bool> CheckWordIfExistsAsync(string name)
         {
             using var _context = _contextFactory.CreateDbContext();
             return await _context.Words!.FirstOrDefaultAsync(o => o.Name == name) is not null;
         }
-        #endregion
+
+        #endregion [ Methods ]
     }
 }

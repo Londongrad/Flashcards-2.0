@@ -28,8 +28,6 @@
             <DataTemplate DataType="{x:Type viewModels:SelectedSetViewModel}">
                 <views:SelectedSetView />
             </DataTemplate>
-
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

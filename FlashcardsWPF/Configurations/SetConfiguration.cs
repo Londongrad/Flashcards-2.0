@@ -17,6 +17,8 @@ namespace Flashcards.Configurations
 
             builder.Property(c => c.Name)
                 .IsRequired().HasMaxLength(20);
+
+            builder.HasData(new SetEntity { Id = 1, Name = "1" });
         }
     }
 }

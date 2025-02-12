@@ -18,12 +18,15 @@ namespace Flashcards.Extensions
         public static IServiceCollection AddPersistence(this IServiceCollection services)
         {
             #region [ Windows ]
+
             services
                 .AddScoped<MainWindow>()
                 .AddTransient<EditWindow>();
-            #endregion
+
+            #endregion [ Windows ]
 
             #region [ ViewModels ]
+
             services
                 .AddSingleton<MainWindowViewModel>()
                 .AddSingleton<EditWindowViewModel>()
@@ -57,22 +60,29 @@ namespace Flashcards.Extensions
                     sp.GetRequiredService<IWordRepository>()
                     )
                 );
-            #endregion
+
+            #endregion [ ViewModels ]
 
             #region [ Repositories ]
+
             services
                 .AddSingleton<ISetRepository, SetRepository>()
                 .AddSingleton<IWordRepository, WordRepository>();
-            #endregion
+
+            #endregion [ Repositories ]
 
             #region [ Services ]
+
             services
                 .AddSingleton<INavigationService, NavigationService>();
-            #endregion
+
+            #endregion [ Services ]
 
             #region [ DBContext ]
+
             services.AddSingleton<DesignTimeDbContextFactory>();
-            #endregion
+
+            #endregion [ DBContext ]
 
             return services;
         }
