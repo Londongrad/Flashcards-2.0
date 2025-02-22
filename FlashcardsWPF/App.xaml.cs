@@ -20,6 +20,7 @@ namespace Flashcards
             ServiceProvider = services.BuildServiceProvider();
 
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            ServiceProvider.GetRequiredService<DesignTimeDbContextFactory>().CreateDbContext().Database.EnsureDeleted();
             ServiceProvider.GetRequiredService<DesignTimeDbContextFactory>().CreateDbContext().Database.EnsureCreated();
 
             ServiceProvider.GetRequiredService<SetsViewModel>();

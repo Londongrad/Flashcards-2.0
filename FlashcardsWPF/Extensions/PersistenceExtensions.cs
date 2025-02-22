@@ -4,7 +4,6 @@ using Flashcards.Repositoties.Abstract;
 using Flashcards.Repositoties.Bases;
 using Flashcards.Services.Abstracts;
 using Flashcards.Services.Bases;
-using Flashcards.ViewModels;
 using Flashcards.ViewModels.UserControls;
 using Flashcards.ViewModels.Windows;
 using Flashcards.Views.Windows;

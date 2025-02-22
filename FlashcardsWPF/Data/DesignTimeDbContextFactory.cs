@@ -11,7 +11,7 @@ namespace Flashcards.Data
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
@@ -19,7 +19,7 @@ namespace Flashcards.Data
 
             //optionsBuilder.UseSqlServer(connectionString);
 
-            optionsBuilder.UseSqlite($"Data Source={Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("..", "..", "..")))} + flashcards.db");
+            optionsBuilder.UseSqlite($"Data Source={Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("..", "..", "..")))}.db");
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }

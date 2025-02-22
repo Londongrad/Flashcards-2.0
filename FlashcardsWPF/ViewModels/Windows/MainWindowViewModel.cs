@@ -1,12 +1,8 @@
 ﻿using Flashcards.Core.Commands.Base;
-using Flashcards.Models;
-using Flashcards.Repositoties.Abstract;
 using Flashcards.Services.Abstracts;
 using Flashcards.ViewModels.Base;
 using Flashcards.ViewModels.UserControls;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using System.IO;
 
 namespace Flashcards.ViewModels.Windows
 {

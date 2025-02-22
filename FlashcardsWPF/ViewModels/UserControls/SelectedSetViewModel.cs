@@ -146,13 +146,15 @@ namespace Flashcards.ViewModels.UserControls
 
         #region [ Methods ]
 
-        private async Task SayWordAsync(string word)
+        private void SayWordAsync(string word)
         {
-            var speechSynthesizer = new SpeechSynthesizer();
+            SpeechSynthesizer speechSynthesizer; speechSynthesizer = new();
+            //Here might be an exeption if you don't have this voice installed on your PC
+            //speechSynthesizer.SelectVoice("Microsoft Hazel Desktop");
             speechSynthesizer.SpeakAsync(word);
         }
 
-        private async void ShowFirstWord()
+        private void ShowFirstWord()
         {
             var lastWord = _words!.FirstOrDefault(c => c.IsLastWord == true);
             if (lastWord != null)
@@ -162,10 +164,10 @@ namespace Flashcards.ViewModels.UserControls
             Count = $"{i + 1}" + "/" + $"{_words!.Count}";
             if (_words[i].IsFavorite)
                 ColorFav = "Yellow";
-            await ShowWord();
+            ShowWord();
         }
 
-        private async Task ShowWord()
+        private void ShowWord()
         {
             WordName = _words![i].Name;
             DefinitionName = _words![i].Definition;
@@ -181,7 +183,7 @@ namespace Flashcards.ViewModels.UserControls
                 IsVisibleImage = "Hidden";
                 IsVisibleDef = "Hidden";
                 IsVisibleWord = "Visible";
-                await SayWordAsync(WordName);
+                SayWordAsync(WordName);
             }
         }
 
@@ -195,12 +197,12 @@ namespace Flashcards.ViewModels.UserControls
                         IsVisibleWord = "Visible";
                         IsVisibleImage = "Visible";
                         if (IsVisibleWord == "Visible")
-                            await SayWordAsync(_words![i].Name);
+                            SayWordAsync(_words![i].Name);
                     }
                     else
                     {
                         if (IsVisibleDef == "Visible")
-                            await SayWordAsync(_words![i].Name);
+                            SayWordAsync(_words![i].Name);
                         IsVisibleDef = "Visible";
                         IsVisibleImage = "Visible";
                     }
@@ -215,7 +217,7 @@ namespace Flashcards.ViewModels.UserControls
                         Count = $"{i + 1}" + "/" + $"{_words!.Count}";
                         if (_words![i].IsFavorite)
                             ColorFav = "Yellow";
-                        await ShowWord();
+                        ShowWord();
                         await LastWordAdd();
                         if (i == _words!.Count - 1)
                             await LastWordDelete();
@@ -227,7 +229,7 @@ namespace Flashcards.ViewModels.UserControls
                         ColorFav = "Transporant";
                         if (_words![i].IsFavorite)
                             ColorFav = "Yellow";
-                        await ShowWord();
+                        ShowWord();
                     }
                     break;
 
@@ -240,7 +242,7 @@ namespace Flashcards.ViewModels.UserControls
                         Count = $"{i + 1}" + "/" + $"{_words!.Count}";
                         if (_words![i].IsFavorite)
                             ColorFav = "Yellow";
-                        await ShowWord();
+                        ShowWord();
                         await LastWordAdd();
                         if (i == 0)
                             await LastWordDelete();
@@ -252,7 +254,7 @@ namespace Flashcards.ViewModels.UserControls
                         ColorFav = "Transporant";
                         if (_words![i].IsFavorite)
                             ColorFav = "Yellow";
-                        await ShowWord();
+                        ShowWord();
                     }
                     break;
 
@@ -299,7 +301,7 @@ namespace Flashcards.ViewModels.UserControls
                 (_words![n], _words![k]) = (_words![k], _words![n]);
             }
             Count = $"{i + 1}" + "/" + $"{_words!.Count}";
-            await ShowWord();
+            ShowWord();
             ColorFav = "Transparent";
             if (_words![0].IsFavorite)
                 ColorFav = "Yellow";

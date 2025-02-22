@@ -5,7 +5,7 @@ using Flashcards.Repositoties.Abstract;
 using Microsoft.Win32;
 using System.Windows;
 
-namespace Flashcards.ViewModels
+namespace Flashcards.ViewModels.Windows
 {
     public class EditWindowViewModel(WordEntity word, IWordRepository wordRepository) : ObservableObject
     {
