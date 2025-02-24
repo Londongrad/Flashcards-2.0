@@ -20,6 +20,8 @@ namespace Flashcards.ViewModels.UserControls
             _isChecked = IsChecked;
             _wordRepository = wordRepository;
             _viewModel = viewModel;
+            speechSynthesizer = new();
+            speechSynthesizer.SelectVoice("Microsoft Hazel Desktop");
             ShowFirstWord();
         }
 
@@ -39,6 +41,7 @@ namespace Flashcards.ViewModels.UserControls
         private string _isVisibleDef = "Hidden";
         private string _isVisibleImage = "Hidden";
         private string _count = string.Empty;
+        private SpeechSynthesizer speechSynthesizer;
 
         #endregion [ Fields ]
 
@@ -148,9 +151,7 @@ namespace Flashcards.ViewModels.UserControls
 
         private void SayWordAsync(string word)
         {
-            SpeechSynthesizer speechSynthesizer; speechSynthesizer = new();
-            //Here might be an exeption if you don't have this voice installed on your PC
-            //speechSynthesizer.SelectVoice("Microsoft Hazel Desktop");
+            speechSynthesizer.SpeakAsyncCancelAll();
             speechSynthesizer.SpeakAsync(word);
         }
 
