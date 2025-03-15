@@ -17,9 +17,9 @@ namespace Flashcards.Data
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var connectionString = configuration.GetConnectionString("DBMain");
 
-            //optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
 
-            optionsBuilder.UseSqlite($"Data Source={Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("..", "..", "..")))}.db");
+            //optionsBuilder.UseSqlite($"Data Source={Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Path.Combine("..", "..", "..")))}.db");
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }

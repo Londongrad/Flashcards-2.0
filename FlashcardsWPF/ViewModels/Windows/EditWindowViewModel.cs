@@ -2,7 +2,6 @@
 using Flashcards.Core.Commands.Base;
 using Flashcards.Models;
 using Flashcards.Repositoties.Abstract;
-using Microsoft.Win32;
 using System.Windows;
 
 namespace Flashcards.ViewModels.Windows
@@ -12,7 +11,6 @@ namespace Flashcards.ViewModels.Windows
         #region [ Commands ]
 
         public RelayCommand<Window> SaveChangesCommand => new RelayCommand<Window>(SaveChanges);
-        public RelayCommand ChangeImageCommand => new RelayCommand(execute => ChangeImage());
 
         #endregion [ Commands ]
 
@@ -65,14 +63,6 @@ namespace Flashcards.ViewModels.Windows
             {
                 MessageBox.Show("You already have a word with this name!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void ChangeImage()
-        {
-            var dlg = new OpenFileDialog();
-            dlg.InitialDirectory = "D:\\Download\\Images";
-            dlg.ShowDialog();
-            ImagePath = dlg.FileName;
         }
 
         #endregion [ Methods ]
