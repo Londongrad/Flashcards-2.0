@@ -36,7 +36,7 @@ namespace Flashcards.ViewModels.UserControls
         private string _wordName = string.Empty;
         private string _definitionName = string.Empty;
         private string _imagePath = string.Empty;
-        private string _colorFav = string.Empty;
+        private string _colorFav = "Transporant";
         private string _isVisibleWord = "Hidden";
         private string _isVisibleDef = "Hidden";
         private string _isVisibleImage = "Hidden";
@@ -197,8 +197,7 @@ namespace Flashcards.ViewModels.UserControls
                     {
                         IsVisibleWord = "Visible";
                         IsVisibleImage = "Visible";
-                        if (IsVisibleWord == "Visible")
-                            SayWordAsync(_words![i].Name);
+                        SayWordAsync(_words![i].Name);
                     }
                     else
                     {
