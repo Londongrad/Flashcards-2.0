@@ -11,7 +11,7 @@ namespace Flashcards.ViewModels.UserControls
     {
         public SetViewModel(SetEntity setEntity, INavigationService navigationService, IWordRepository wordRepository, Func<ObservableCollection<WordEntity>, bool, SelectedSetViewModel> selectedSetViewModel)
         {
-            _words = new ObservableCollection<WordEntity>(setEntity.Words);
+            _words = [.. setEntity.Words];
             _navigator = navigationService;
             _wordRepository = wordRepository;
             _selectedSetViewModel = selectedSetViewModel;
@@ -41,10 +41,15 @@ namespace Flashcards.ViewModels.UserControls
 
         #region [ Commands ]
 
-        public RelayCommand SelectSetCommand => new RelayCommand(execute => SelectSet(), canExecute => _words.Count > 0);
-        public RelayCommand SelectFavWordsCommand => new RelayCommand(execute => SelectFavWords(), canExecute => _words.Where(w => w.IsFavorite).Count() > 0);
-        public RelayCommand AddToFavInRangeCommand => new RelayCommand(async execute => await AddToFavInRange(), canExecute => RangeStart > 0 && RangeEnd >= RangeStart && RangeStart <= _words.Count && RangeEnd <= _words.Count);
-        public RelayCommand DeleteAllFavoriteCommand => new RelayCommand(async execute => await DeleteAllFavorite(), canExecute => _words.Any(w => w.IsFavorite));
+        public RelayCommand SelectSetCommand =>
+            new (execute => SelectSet(), canExecute => _words.Count > 0);
+        public RelayCommand SelectFavWordsCommand =>
+            new (execute => SelectFavWords(), canExecute => _words.Where(w => w.IsFavorite).Any());
+        public RelayCommand AddToFavInRangeCommand => 
+            new (async execute => await AddToFavInRange(),
+                canExecute => RangeStart > 0 && RangeEnd >= RangeStart && RangeStart <= _words.Count && RangeEnd <= _words.Count);
+        public RelayCommand DeleteAllFavoriteCommand =>
+            new (async execute => await DeleteAllFavorite(), canExecute => _words.Any(w => w.IsFavorite));
 
         #endregion [ Commands ]
 
@@ -141,7 +146,7 @@ namespace Flashcards.ViewModels.UserControls
 
         private void SelectFavWords()
         {
-            _navigator.NavigateTo(_selectedSetViewModel(new ObservableCollection<WordEntity>(_words.Where(words => words.IsFavorite == true).ToList()), IsChecked));
+            _navigator.NavigateTo(_selectedSetViewModel([.. _words.Where(words => words.IsFavorite == true).ToList()], IsChecked));
         }
 
         private async Task AddToFavInRange()

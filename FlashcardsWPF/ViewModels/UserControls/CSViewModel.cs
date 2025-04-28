@@ -24,11 +24,17 @@ namespace Flashcards.ViewModels.UserControls
 
         #region [ Commands ]
 
-        public RelayCommand CreateSetCommand => new RelayCommand(async execute => await CreateSet(), canExecute => Set != "");
-        public RelayCommand DeleteSetCommand => new RelayCommand(async execute => await DeleteSet(), canExecute => NameDeleteSet != "");
-        public RelayCommand FindImageCommand => new RelayCommand(execute => FindImage(), canExecute => WordName != "");
-        public RelayCommand DeleteWordCommand => new RelayCommand(async execute => await DeleteWord(), canExecute => NameDeleteWord != "");
-        public RelayCommand AddWordCommand => new RelayCommand(async execute => await AddWord(), canExecute => Set != "" && WordName != "" && Definition != "" && ExVis != "Visible");
+        public RelayCommand CreateSetCommand =>
+            new (async execute => await CreateSet(), canExecute => Set != "");
+        public RelayCommand DeleteSetCommand =>
+            new (async execute => await DeleteSet(), canExecute => NameDeleteSet != "");
+        public RelayCommand FindImageCommand =>
+            new (execute => FindImage(), canExecute => WordName != "");
+        public RelayCommand DeleteWordCommand =>
+            new (async execute => await DeleteWord(), canExecute => NameDeleteWord != "");
+        public RelayCommand AddWordCommand =>
+            new (async execute => await AddWord(), 
+                canExecute => Set != "" && WordName != "" && Definition != "" && ExVis != "Visible");
 
         #endregion [ Commands ]
 
@@ -155,11 +161,12 @@ namespace Flashcards.ViewModels.UserControls
         {
             ThumbUpVis = "Hidden";
 
-            OpenFileDialog dlg = new();
-
-            dlg.DefaultExt = ".png";
-            dlg.Filter = "All Pictures (*.emf;*.wmf;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.bmp;*.dib;*.rle;*.gif;*.emz;*.wmz;*.tif;*.tiff;*.svg;*.ico;*.webp)" +
-            "|*.emf;*.wmf;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.bmp;*.dib;*.rle;*.gif;*.emz;*.wmz;*.tif;*.tiff;*.svg;*.ico;*.webp";
+            OpenFileDialog dlg = new()
+            {
+                DefaultExt = ".png",
+                Filter = "All Pictures (*.emf;*.wmf;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.bmp;*.dib;*.rle;*.gif;*.emz;*.wmz;*.tif;*.tiff;*.svg;*.ico;*.webp)" +
+                "|*.emf;*.wmf;*.jpg;*.jpeg;*.jfif;*.jpe;*.png;*.bmp;*.dib;*.rle;*.gif;*.emz;*.wmz;*.tif;*.tiff;*.svg;*.ico;*.webp"
+            };
 
             Nullable<bool> result = dlg.ShowDialog();
 

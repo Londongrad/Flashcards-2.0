@@ -26,41 +26,41 @@ namespace Flashcards.ViewModels.Windows
 
         #region [ Commands ]
 
-        public RelayCommand NavigateToCSViewCommand => new RelayCommand
+        public RelayCommand NavigateToCSViewCommand => new
             (
                 execute => Navigation.NavigateTo(App.ServiceProvider!.GetRequiredService<CSViewModel>())
             );
 
-        public RelayCommand NavigateToSetsViewCommand => new RelayCommand
+        public RelayCommand NavigateToSetsViewCommand => new
             (
                 execute => Navigation.NavigateTo(App.ServiceProvider!.GetRequiredService<SetsViewModel>())
             );
 
-        public RelayCommand SetVisibility => new RelayCommand
+        public RelayCommand SetVisibility => new
             (
             execute => SelectedSetViewModel.setCommand!(0),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
 
-        public RelayCommand GoForward => new RelayCommand
+        public RelayCommand GoForward => new
             (
             execute => SelectedSetViewModel.setCommand!(1),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
 
-        public RelayCommand GoBack => new RelayCommand
+        public RelayCommand GoBack => new
             (
             execute => SelectedSetViewModel.setCommand!(2),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
 
-        public RelayCommand ToFavorite => new RelayCommand
+        public RelayCommand ToFavorite => new
             (
             execute => SelectedSetViewModel.setCommand!(3),
             canExecute => Navigation!.CurrentView is SelectedSetViewModel
             );
 
-        public RelayCommand Import => new RelayCommand(execute =>
+        public RelayCommand Import => new(execute =>
             {
                 //var words = new List<WordEntity>();
                 //var path = "C:\\Users\\h-b-1\\Desktop\\sets.json";

@@ -17,9 +17,7 @@ namespace Flashcards.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => 
             base.OnConfiguring(optionsBuilder);
-        }
     }
 }

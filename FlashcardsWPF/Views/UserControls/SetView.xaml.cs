@@ -1,12 +1,7 @@
-﻿using System.Windows.Controls;
-
-namespace Flashcards.Views.UserControls
+﻿namespace Flashcards.Views.UserControls
 {
-    public partial class SetView : UserControl
+    public partial class SetView
     {
-        public SetView()
-        {
-            InitializeComponent();
-        }
+        public SetView() => InitializeComponent();
     }
 }

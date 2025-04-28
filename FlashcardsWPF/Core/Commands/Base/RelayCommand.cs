@@ -9,8 +9,8 @@ namespace Flashcards.Core.Commands.Base
 
         public event EventHandler? CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value; 
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null!)
@@ -19,15 +19,9 @@ namespace Flashcards.Core.Commands.Base
             _canExecute = canExecute;
         }
 
-        public bool CanExecute(object? parameter)
-        {
-            return _canExecute == null || _canExecute(parameter!);
-        }
+        public bool CanExecute(object? parameter) => _canExecute == null || _canExecute(parameter!);
 
-        public virtual void Execute(object? parameter)
-        {
-            _execute(parameter!);
-        }
+        public virtual void Execute(object? parameter) => _execute(parameter!);
     }
 
     public class RelayCommand<T> : ICommand
@@ -37,34 +31,22 @@ namespace Flashcards.Core.Commands.Base
 
         public event EventHandler? CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value; 
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         public RelayCommand(Action<T> execute)
-           : this(execute, null!)
-        {
-            _execute = execute;
-        }
+           : this(execute, null!) => _execute = execute;
 
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-            if (execute == null)
-            {
-                throw new ArgumentNullException("execute");
-            }
+            ArgumentNullException.ThrowIfNull(execute);
             _execute = execute;
             _canExecute = canExecute;
         }
 
-        public bool CanExecute(object? parameter)
-        {
-            return _canExecute == null || _canExecute((T)parameter!);
-        }
+        public bool CanExecute(object? parameter) => _canExecute == null || _canExecute((T)parameter!);
 
-        public void Execute(object? parameter)
-        {
-            _execute((T)parameter!);
-        }
+        public void Execute(object? parameter) => _execute((T)parameter!);
     }
 }

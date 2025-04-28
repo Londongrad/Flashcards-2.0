@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace Flashcards
 {
-    public partial class App : Application
+    public partial class App
     {
         public static IServiceProvider? ServiceProvider { get; private set; }
 

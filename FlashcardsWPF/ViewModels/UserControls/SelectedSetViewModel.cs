@@ -41,15 +41,15 @@ namespace Flashcards.ViewModels.UserControls
         private string _isVisibleDef = "Hidden";
         private string _isVisibleImage = "Hidden";
         private string _count = string.Empty;
-        private SpeechSynthesizer speechSynthesizer;
+        private readonly SpeechSynthesizer speechSynthesizer;
 
         #endregion [ Fields ]
 
         #region [ Commmands ]
 
-        public RelayCommand MixWordsCommand => new RelayCommand(async execute => await MixWords());
-        public RelayCommand EditCommand => new RelayCommand(execute => Edit());
-        public RelayCommand DeleteWordCommand => new RelayCommand(async execute => await DeleteWord());
+        public RelayCommand MixWordsCommand => new(async execute => await MixWords());
+        public RelayCommand EditCommand => new (execute => Edit());
+        public RelayCommand DeleteWordCommand => new (async execute => await DeleteWord());
 
         #endregion [ Commmands ]
 
@@ -292,7 +292,7 @@ namespace Flashcards.ViewModels.UserControls
         {
             await LastWordDelete();
             i = 0;
-            Random rng = new Random();
+            Random rng = new ();
             int n = _words!.Count;
             while (n > 1)
             {

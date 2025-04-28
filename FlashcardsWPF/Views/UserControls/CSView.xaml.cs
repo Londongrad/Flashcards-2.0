@@ -1,12 +1,7 @@
-﻿using System.Windows.Controls;
-
-namespace Flashcards.Views.UserControls
+﻿namespace Flashcards.Views.UserControls
 {
-    public partial class CSView : UserControl
+    public partial class CSView
     {
-        public CSView()
-        {
-            InitializeComponent();
-        }
+        public CSView() => InitializeComponent();
     }
 }

@@ -10,7 +10,7 @@ namespace Flashcards.ViewModels.Windows
     {
         #region [ Commands ]
 
-        public RelayCommand<Window> SaveChangesCommand => new RelayCommand<Window>(SaveChanges);
+        public RelayCommand<Window> SaveChangesCommand => new (SaveChanges);
 
         #endregion [ Commands ]
 
@@ -56,8 +56,7 @@ namespace Flashcards.ViewModels.Windows
             try
             {
                 await wordRepository.UpdateAsync(word);
-                if (window != null)
-                    window.Close();
+                window?.Close();
             }
             catch (Exception)
             {
