@@ -15,7 +15,8 @@ namespace Flashcards.Data
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            var connectionString = configuration.GetConnectionString("DBMain");
+            //var connectionString = configuration.GetConnectionString("DBMain");
+            var connectionString = configuration.GetConnectionString("Host");
 
             optionsBuilder.UseSqlServer(connectionString);
 

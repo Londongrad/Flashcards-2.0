@@ -8,6 +8,7 @@
         MinHeight="500"
         Width="1400"
         MinWidth="900"
+        WindowState="Maximized"
         ResizeMode="CanResize"
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
