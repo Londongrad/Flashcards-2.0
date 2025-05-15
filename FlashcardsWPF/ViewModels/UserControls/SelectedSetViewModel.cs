@@ -21,7 +21,8 @@ namespace Flashcards.ViewModels.UserControls
             _wordRepository = wordRepository;
             _viewModel = viewModel;
             speechSynthesizer = new();
-            speechSynthesizer.SelectVoice("Microsoft Hazel Desktop");
+            try { speechSynthesizer.SelectVoice("Microsoft Hazel Desktop"); }
+            catch (Exception) { }
             ShowFirstWord();
         }
 
@@ -48,8 +49,8 @@ namespace Flashcards.ViewModels.UserControls
         #region [ Commmands ]
 
         public RelayCommand MixWordsCommand => new(async execute => await MixWords());
-        public RelayCommand EditCommand => new (execute => Edit());
-        public RelayCommand DeleteWordCommand => new (async execute => await DeleteWord());
+        public RelayCommand EditCommand => new(execute => Edit());
+        public RelayCommand DeleteWordCommand => new(async execute => await DeleteWord());
 
         #endregion [ Commmands ]
 
@@ -292,7 +293,7 @@ namespace Flashcards.ViewModels.UserControls
         {
             await LastWordDelete();
             i = 0;
-            Random rng = new ();
+            Random rng = new();
             int n = _words!.Count;
             while (n > 1)
             {
